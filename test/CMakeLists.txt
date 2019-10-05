@@ -47,6 +47,7 @@ add_cpr_test(error)
 add_cpr_test(alternating)
 add_cpr_test(util)
 add_cpr_test(structures)
+add_cpr_test(connection_pool)
 
 if (ENABLE_SSL_TESTS)
     add_cpr_test(ssl)
@@ -58,3 +59,4 @@ if (ENABLE_SSL_TESTS)
     add_custom_command(TARGET ssl_tests POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/data/client.key $<TARGET_FILE_DIR:ssl_tests>)
     add_custom_command(TARGET ssl_tests POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/data/client.cer $<TARGET_FILE_DIR:ssl_tests>)
 endif()
+

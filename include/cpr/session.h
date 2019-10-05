@@ -27,6 +27,7 @@
 #include "cpr/unix_socket.h"
 #include "cpr/user_agent.h"
 #include "cpr/verbose.h"
+#include "cpr/connection_pool.h"
 
 namespace cpr {
 
@@ -72,6 +73,7 @@ class Session {
     void SetProgressCallback(const ProgressCallback& progress);
     void SetDebugCallback(const DebugCallback& debug);
     void SetVerbose(const Verbose& verbose);
+    void SetConnectionPool(const ConnectionPool& pool);
 
     // Used in templated functions
     void SetOption(const Url& url);
@@ -107,6 +109,7 @@ class Session {
     void SetOption(const Verbose& verbose);
     void SetOption(const UnixSocket& unix_socket);
     void SetOption(const SslOptions& options);
+    void SetOption(const ConnectionPool& pool);
 
     Response Delete();
     Response Download(const WriteCallback& write);
