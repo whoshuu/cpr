@@ -3,10 +3,10 @@
 
 #include "cpr/api.h"
 #include "cpr/auth.h"
+#include "cpr/connection_pool.h"
 #include "cpr/cprtypes.h"
 #include "cpr/response.h"
 #include "cpr/session.h"
 #include "cpr/status_codes.h"
-#include "cpr/connection_pool.h"
 
 #endif
