@@ -47,6 +47,7 @@ class Session::Impl {
     void SetNTLM(const NTLM& auth);
     void SetRedirect(const bool& redirect);
     void SetMaxRedirects(const MaxRedirects& max_redirects);
+    void SetConnectionPool(const ConnectionPool& pool);
     void SetCookies(const Cookies& cookies);
     void SetBody(Body&& body);
     void SetBody(const Body& body);
@@ -298,6 +299,13 @@ void Session::Impl::SetRedirect(const bool& redirect) {
 
 void Session::Impl::SetMaxRedirects(const MaxRedirects& max_redirects) {
     curl_easy_setopt(curl_->handle, CURLOPT_MAXREDIRS, max_redirects.number_of_redirects);
+}
+
+void Session::Impl::SetConnectionPool(const ConnectionPool& pool) {
+    auto curl = curl_->handle;
+    if (curl) {
+        pool.SetupHandler(curl);
+    }
 }
 
 void Session::Impl::SetCookies(const Cookies& cookies) {
@@ -633,6 +641,7 @@ void Session::SetParameters(Parameters&& parameters) { pimpl_->SetParameters(std
 void Session::SetHeader(const Header& header) { pimpl_->SetHeader(header); }
 void Session::SetTimeout(const Timeout& timeout) { pimpl_->SetTimeout(timeout); }
 void Session::SetConnectTimeout(const ConnectTimeout& timeout) { pimpl_->SetConnectTimeout(timeout); }
+void Session::SetConnectionPool(const ConnectionPool& pool) { pimpl_->SetConnectionPool(pool); }
 void Session::SetAuth(const Authentication& auth) { pimpl_->SetAuth(auth); }
 void Session::SetDigest(const Digest& auth) { pimpl_->SetDigest(auth); }
 void Session::SetUserAgent(const UserAgent& ua) { pimpl_->SetUserAgent(ua); }
@@ -689,6 +698,7 @@ void Session::SetOption(const VerifySsl& verify) { pimpl_->SetVerifySsl(verify);
 void Session::SetOption(const Verbose& verbose) { pimpl_->SetVerbose(verbose); }
 void Session::SetOption(const UnixSocket& unix_socket) { pimpl_->SetUnixSocket(unix_socket); }
 void Session::SetOption(const SslOptions& options) { pimpl_->SetSslOptions(options); }
+void Session::SetOption(const ConnectionPool& pool) { pimpl_->SetConnectionPool(pool); }
 
 Response Session::Delete() { return pimpl_->Delete(); }
 Response Session::Download(const WriteCallback& write) { return pimpl_->Download(write); }
